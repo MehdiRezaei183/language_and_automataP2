@@ -1,0 +1,7 @@
+# ninja log v5
+4	325	7718642078205404	CMakeFiles/language_and_automataP2.dir/main.cpp.obj	a9a057476f2999f9
+8	57	7718642075505039	CMakeFiles/language_and_automataP2.dir/system/Rule.cpp.obj	8f5f37acd693f888
+2	68	7718642075625403	CMakeFiles/language_and_automataP2.dir/system/Variable.cpp.obj	7d87fd0ad22fe6c0
+6	63	7718642075575049	CMakeFiles/language_and_automataP2.dir/system/Terminal.cpp.obj	aab38d185352036c
+43	108	7718644876889621	language_and_automataP2.exe	39f2534d2a8b7e48
+2	43	7718644876274359	CMakeFiles/language_and_automataP2.dir/system/Interface_Ter_Var.cpp.obj	2d8f6cb47c12b453
