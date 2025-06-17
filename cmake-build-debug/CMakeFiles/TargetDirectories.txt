@@ -1,0 +1,3 @@
+C:/Users/my pc/CLionProjects/language_and_automataP2/cmake-build-debug/CMakeFiles/language_and_automataP2.dir
+C:/Users/my pc/CLionProjects/language_and_automataP2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/my pc/CLionProjects/language_and_automataP2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
