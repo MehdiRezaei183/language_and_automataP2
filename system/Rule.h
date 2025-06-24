@@ -7,10 +7,19 @@
 
 #include "Var_Ter/Variable.h"
 #include "Var_Ter/Terminal.h"
+#include "Expression.h"
 
 class Rule {
 private:
-    Variable LeftSide;
+    Variable* LeftSide;
+    Expression RightSide;
+public:
+    Rule(Variable* , Expression&);
+    Variable* getLeft();
+    Expression getRight();
+
+    void setVar(Variable*);
+    void setExp(Expression&);
 
 };
 

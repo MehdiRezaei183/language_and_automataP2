@@ -16,7 +16,7 @@ public:
     Interface_Ter_Var() = default;
     Interface_Ter_Var(char input);
     void setTag(char input);
-    char getTag();
+    char getTag()const;
     virtual bool isVar();
 };
 

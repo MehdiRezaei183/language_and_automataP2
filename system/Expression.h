@@ -11,9 +11,18 @@
 
 class Expression {
 private:
-    vector<Interface_Ter_Var*> list;
+    string line;
+    vector<Interface_Ter_Var*> types;
 public:
     Expression() = default;
+    explicit Expression(string input , vector<Interface_Ter_Var*> type);
+
+    string getLine(){ return this->line;}
+    void setLine(string input);
+
+    vector<Interface_Ter_Var*> getTypes(){return this->types;}
+
+    bool isInLine(const Interface_Ter_Var* input);
 };
 
 

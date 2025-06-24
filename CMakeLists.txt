@@ -11,4 +11,8 @@ add_executable(language_and_automataP2 main.cpp
         system/Var_Ter/Terminal.h
         system/Var_Ter/Interface_Ter_Var.h
         system/Expression.h
+        system/Expression.cpp
+        system/Grammar.h
+        system/Grammar.cpp
+        system/Rule.cpp
 )

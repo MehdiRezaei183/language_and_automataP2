@@ -73,6 +73,24 @@ build CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Interface_Ter_Var.cp
   OBJECT_DIR = CMakeFiles\language_and_automataP2.dir
   OBJECT_FILE_DIR = CMakeFiles\language_and_automataP2.dir\system\Var_Ter
 
+build CMakeFiles/language_and_automataP2.dir/system/Expression.cpp.obj: CXX_COMPILER__language_and_automataP2_unscanned_Debug C$:/Users/my$ pc/CLionProjects/language_and_automataP2/system/Expression.cpp || cmake_object_order_depends_target_language_and_automataP2
+  DEP_FILE = CMakeFiles\language_and_automataP2.dir\system\Expression.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\language_and_automataP2.dir
+  OBJECT_FILE_DIR = CMakeFiles\language_and_automataP2.dir\system
+
+build CMakeFiles/language_and_automataP2.dir/system/Grammar.cpp.obj: CXX_COMPILER__language_and_automataP2_unscanned_Debug C$:/Users/my$ pc/CLionProjects/language_and_automataP2/system/Grammar.cpp || cmake_object_order_depends_target_language_and_automataP2
+  DEP_FILE = CMakeFiles\language_and_automataP2.dir\system\Grammar.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\language_and_automataP2.dir
+  OBJECT_FILE_DIR = CMakeFiles\language_and_automataP2.dir\system
+
+build CMakeFiles/language_and_automataP2.dir/system/Rule.cpp.obj: CXX_COMPILER__language_and_automataP2_unscanned_Debug C$:/Users/my$ pc/CLionProjects/language_and_automataP2/system/Rule.cpp || cmake_object_order_depends_target_language_and_automataP2
+  DEP_FILE = CMakeFiles\language_and_automataP2.dir\system\Rule.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\language_and_automataP2.dir
+  OBJECT_FILE_DIR = CMakeFiles\language_and_automataP2.dir\system
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target language_and_automataP2
@@ -81,7 +99,7 @@ build CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Interface_Ter_Var.cp
 #############################################
 # Link the executable language_and_automataP2.exe
 
-build language_and_automataP2.exe: CXX_EXECUTABLE_LINKER__language_and_automataP2_Debug CMakeFiles/language_and_automataP2.dir/main.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Variable.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Terminal.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Interface_Ter_Var.cpp.obj
+build language_and_automataP2.exe: CXX_EXECUTABLE_LINKER__language_and_automataP2_Debug CMakeFiles/language_and_automataP2.dir/main.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Variable.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Terminal.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Var_Ter/Interface_Ter_Var.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Expression.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Grammar.cpp.obj CMakeFiles/language_and_automataP2.dir/system/Rule.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\language_and_automataP2.dir
