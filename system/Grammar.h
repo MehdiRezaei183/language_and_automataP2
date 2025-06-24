@@ -8,7 +8,9 @@
 #include "Rule.h"
 #include "sstream"
 #include "map"
+#include "algorithm"
 #include "regex"
+#include "queue"
 
 class Grammar {
 private:
@@ -28,10 +30,16 @@ private:
     vector<Interface_Ter_Var*> getTypes(const string& input);
     bool isTerminal (const char& input)const;
 
-    void CheckVar(map<char , bool>& reachable , Variable* current);
+    void CheckVarUseLess(map<char , bool>& reachable , Variable* current);
+    void CheckRuleLoop(map<char , bool>& Finals );
+
+
+    bool all_of_M(vector<Interface_Ter_Var *> list, map<char, bool> &finals);
 public:
     // Removing useless productions
     void RemoveUseless();
+
+    void RemoveInfinite();
 };
 
 

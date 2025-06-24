@@ -19,3 +19,10 @@ bool Expression::isInLine(const Interface_Ter_Var* input) {
     return false;
 }
 
+bool Expression::isFinal() const {
+    for (auto const & item : types) {
+        if(item->isVar())
+            return false;
+    }
+    return true;
+}

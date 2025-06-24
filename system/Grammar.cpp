@@ -60,6 +60,20 @@ vector <Interface_Ter_Var*> Grammar::getTypes(const std::string &input) {
 
 bool Grammar::isTerminal(const char &input) const {return terminals.find(input) != terminals.end();}
 
+void Grammar::CheckVarUseLess(map<char, bool> &reachable , Variable* current) {
+    for (auto const & item : Rules[current->getTag()]) {
+        for (auto const& rule : item->getRight().getTypes()) {
+            if(rule->isVar()){
+                if(!reachable[rule->getTag()]){
+                    reachable[rule->getTag()] = true;
+                    CheckVarUseLess(reachable , variables[rule->getTag()]);
+                }
+
+            }
+        }
+    }
+}
+
 // Deleting:
 void Grammar::RemoveUseless() {
     map<char , bool> reachable;
@@ -67,7 +81,7 @@ void Grammar::RemoveUseless() {
         reachable[item.first] = false;
     }
     reachable['S'] = true;
-    CheckVar(reachable , variables['S']);
+    CheckVarUseLess(reachable , variables['S']);
     for (auto const item : reachable) {
         if(!item.second){
             variables.erase(item.first);
@@ -77,16 +91,50 @@ void Grammar::RemoveUseless() {
     }
 }
 
-void Grammar::CheckVar(map<char, bool> &reachable , Variable* current) {
-    for (auto const & item : Rules[current->getTag()]) {
-        for (auto const& rule : item->getRight().getTypes()) {
-            if(rule->isVar()){
-                if(!reachable[rule->getTag()]){
-                    reachable[rule->getTag()] = true;
-                    CheckVar(reachable , variables[rule->getTag()]);
-                }
+bool Grammar::all_of_M(vector<Interface_Ter_Var *> list, map<char, bool> &finals) {
+    for (auto first = list.begin(); first != list.end() ; first++) {
+        if((*first)->isVar() && !finals[(*first)->getTag()]){
+            return false;
+        }
+    }
+    return true;
+}
 
+void Grammar::CheckRuleLoop(map<char, bool>& Finals) {
+    queue<Variable*> line;
+    for (auto const & item : this->variables) {
+        line.push(item.second);
+    }
+    int isDone = line.size();
+    while (!line.empty() && isDone >= 0){
+        Variable* temp = line.front();
+        line.pop();
+        for (auto const& item : Rules[temp->getTag()]) {
+            if(item->getRight().isFinal() || all_of_M(item->getRight().getTypes(),Finals)){
+                Finals[temp->getTag()] = true;
+                isDone = line.size();
+                break;
             }
+        }
+
+        if(!Finals[temp->getTag()]){
+            line.push(temp);
+            isDone--;
+        }
+
+    }
+}
+
+void Grammar::RemoveInfinite() {
+    map<char , bool> Finals;
+    for (auto const & item : variables) {
+        Finals[item.first] = false;
+    }
+    CheckRuleLoop(Finals);
+    for (auto const& item : Finals) {
+        if(!item.second){
+            variables.erase(item.first);
+            Rules.erase(item.first);
         }
     }
 }

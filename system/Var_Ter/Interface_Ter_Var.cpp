@@ -3,7 +3,7 @@
 //
 
 #include "Interface_Ter_Var.h"
-char Interface_Ter_Var::getTag() const {return this->tag;}
+char Interface_Ter_Var::getTag()const{return this->tag;}
 
 void Interface_Ter_Var::setTag(char input) { this->tag = input;}
 

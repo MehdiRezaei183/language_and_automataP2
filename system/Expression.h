@@ -23,6 +23,7 @@ public:
     vector<Interface_Ter_Var*> getTypes(){return this->types;}
 
     bool isInLine(const Interface_Ter_Var* input);
+    bool isFinal()const;
 };
 
 

@@ -27,6 +27,7 @@ int main() {
     input = "D -> SbS | A | bb";
     test.addRule(input);
     test.RemoveUseless();
+    test.RemoveInfinite();
 
     return 0;
 }
