@@ -25,6 +25,7 @@ public:
     void setVariables(const vector<Variable*>& list);
 
     void addRule(string& input);
+    void addRuleToVar(string var , string expr);
 
 private:
     vector<Interface_Ter_Var*> getTypes(const string& input);
@@ -34,12 +35,21 @@ private:
     void CheckRuleLoop(map<char , bool>& Finals );
 
 
+
     bool all_of_M(vector<Interface_Ter_Var *> list, map<char, bool> &finals);
+    bool isUnit(Expression input);
+    bool isExist(const string var , const string rule);
+
+    bool remove_lan(const string );
 public:
     // Removing useless productions
     void RemoveUseless();
-
+    // Removing loop
     void RemoveInfinite();
+    // Removing unit position
+    void Remove_unit_production();
+
+    void Remove_Landa_Production();
 };
 
 

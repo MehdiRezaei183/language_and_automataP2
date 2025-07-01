@@ -18,16 +18,19 @@ int main() {
     test.setTerminals(list1);
     test.setVariables(list2);
 
-    string  input = "S -> ASB";
+    string  input = "S -> AS | a | a |a";
     test.addRule(input);
-    input = "A -> aAS | a | @";
+    input = "A -> aAS | D | @";
     test.addRule(input);
-    input = "B -> SbS | A | bb";
+    /*input = "B -> SbS | A | bb";
+    test.addRule(input);*/
+    input = "D -> Ab | bb";
     test.addRule(input);
-    input = "D -> SbS | A | bb";
-    test.addRule(input);
-    test.RemoveUseless();
     test.RemoveInfinite();
+    test.RemoveUseless();
+    test.Remove_unit_production();
+    test.RemoveUseless();
+    test.Remove_Landa_Production();
 
     return 0;
 }

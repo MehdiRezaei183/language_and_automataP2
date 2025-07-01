@@ -4,6 +4,20 @@
 
 #include "Grammar.h"
 
+bool Grammar::isExist(const std::string var,const  std::string rule) {
+    if(var.size() == 1 && Rules.find(var[0]) != Rules.end()){
+        if(var == rule)
+            return true;
+
+        for (const auto &item : Rules[var[0]]) {
+            if(item->getRight().getLine() == rule){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 void Grammar::setTerminals(const vector <Terminal*> &list) {
     for (auto const & item : list) {
         terminals[item->getTag()] = item;
@@ -13,6 +27,19 @@ void Grammar::setTerminals(const vector <Terminal*> &list) {
 void Grammar ::setVariables(const vector <Variable*> &list) {
     for (auto const & item : list) {
         variables[item->getTag()] = item;
+    }
+}
+
+void Grammar::addRuleToVar(std::string var, std::string expr) {
+    if(!isExist(var , expr)){
+        Expression line = Expression(expr , this->getTypes(expr));
+        Rule* rule = new Rule(new Variable(var[0]) , line);
+        if(Rules.find(var[0]) == Rules.end()) {
+            Rules[var[0]] = vector < Rule * > {rule};
+        }
+        else{
+            Rules[var[0]].push_back(rule);
+        }
     }
 }
 
@@ -26,23 +53,12 @@ void Grammar::addRule(std::string &input) {
     string variable = input.substr(0 , input.find('-') - 1);
     string expr = input.substr(input.find('>')+2);
     expr.erase(remove(expr.begin() , expr.end(),' '),expr.end());
-    auto var = new Variable(variable[0]);
-
 
     stringstream ss(expr);
     string temp;
 
-
-
     while (getline(ss , temp ,'|')){
-        Expression line = Expression(temp , this->getTypes(temp));
-        Rule* rule = new Rule(var , line);
-        if(Rules.find(var->getTag()) == Rules.end()) {
-            Rules[var->getTag()] = vector < Rule * > {rule};
-        }
-        else{
-            Rules[var->getTag()].push_back(rule);
-        }
+        addRuleToVar(variable , temp);
     }
 }
 
@@ -124,7 +140,7 @@ void Grammar::CheckRuleLoop(map<char, bool>& Finals) {
 
     }
 }
-
+// loop
 void Grammar::RemoveInfinite() {
     map<char , bool> Finals;
     for (auto const & item : variables) {
@@ -137,4 +153,63 @@ void Grammar::RemoveInfinite() {
             Rules.erase(item.first);
         }
     }
+}
+
+bool Grammar::isUnit(Expression input) {
+    if(input.getLine().size() == 1 && variables.find(input.getLine()[0]) != variables.end()){
+        return true;
+    }
+    return false;
+}
+
+// unit
+void Grammar::Remove_unit_production() {
+    for (auto list = Rules.begin() ; list != Rules.end();list++) {
+        for (int i = 0 ; i < (*list).second.size();i++) {
+            if(isUnit((*list).second[i]->getRight())){
+                if((*list).first == (*list).second[i]->getRight().getLine()[0]){
+                    (*list).second.erase((*list).second.begin() + i);
+                }
+                else{
+                    vector<Rule*> temp;
+                    for (auto j = Rules[(*list).second[i]->getRight().getLine()[0]].begin();j != Rules[(*list).second[i]->getRight().getLine()[0]].end();j++) {
+                        Expression line = Expression((*j)->getRight());
+                        temp.push_back(new Rule(new Variable((*list).first),line));
+                    }
+
+                    (*list).second.insert((*list).second.end(),temp.begin(),temp.end());
+                    (*list).second.erase((*list).second.begin() + i);
+                }
+                i--;
+            }
+        }
+    }
+}
+
+void Grammar::Remove_Landa_Production() {
+    for (auto &list : this->Rules) {
+        for (auto &item : list.second) {
+            if(item->getRight().isInLine(terminals['@'])){
+                list.second.erase(std::find(list.second.begin(), list.second.end(),item));
+                this->remove_lan(string(1,list.first));
+                this->Remove_unit_production();
+                break;
+            }
+        }
+    }
+}
+
+bool Grammar::remove_lan(const string var ) {
+    bool result = false;
+    for (auto &list : Rules) {
+        for (auto &item : list.second) {
+            if(item->getRight().isInLine(variables[var[0]])){
+                string expr = item->getRight().getLine();
+                expr.erase(remove(expr.begin() , expr.end(),var[0]),expr.end());
+                addRuleToVar(string(1,list.first), expr);
+                result = true;
+            }
+        }
+    }
+    return result;
 }
