@@ -28,5 +28,6 @@ int main() {
     test.addRule(input);
     test.Removing();
     test.transformToUpper();
+    test.transformFinal();
     return 0;
 }

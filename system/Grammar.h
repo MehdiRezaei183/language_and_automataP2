@@ -56,6 +56,7 @@ public:
     //////////////////////////////////////
     void transformToUpper();
 
+    void transformFinal();
 };
 
 

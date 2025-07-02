@@ -253,3 +253,22 @@ void Grammar::transformToUpper() {
         base++;
     }
 }
+
+void Grammar::transformFinal() {
+    char base = 'R';
+    for (auto const & list : Rules) {
+        for (auto const & item : list.second) {
+            string line = item->getRight().getLine();
+            while (line.size() > 2){
+                string temp = line.substr(0 , 2);
+                line.erase(0,2);
+                line = base + line;
+                Expression forLine = Expression(line , this->getTypes(line));
+                item->setExp(forLine);
+                variables[base] =  new Variable(base);
+                addRuleToVar(string(1, base), temp);
+                base--;
+            }
+        }
+    }
+}
