@@ -121,7 +121,7 @@ void Grammar::CheckRuleLoop(map<char, bool>& Finals) {
     for (auto const & item : this->variables) {
         line.push(item.second);
     }
-    int isDone = line.size();
+    int isDone = line.size()+10;
     while (!line.empty() && isDone >= 0){
         Variable* temp = line.front();
         line.pop();
@@ -203,9 +203,9 @@ void Grammar::Remove_Landa_Production() {
 bool Grammar::remove_lan(const string var ) {
     bool result = false;
     for (auto &list : Rules) {
-        for (auto &item : list.second) {
-            if(item->getRight().isInLine(variables[var[0]])){
-                string expr = item->getRight().getLine();
+        for (int item = 0 ; item != list.second.size();item++) {
+            if((*(list.second.begin() + item))->getRight().isInLine(variables[var[0]])){
+                string expr = (*(list.second.begin() + item))->getRight().getLine();
                 expr.erase(remove(expr.begin() , expr.end(),var[0]),expr.end());
                 addRuleToVar(string(1,list.first), expr);
                 result = true;
@@ -270,5 +270,15 @@ void Grammar::transformFinal() {
                 base--;
             }
         }
+    }
+}
+
+void Grammar::printGrammar() {
+    for (auto const& list : Rules) {
+        cout << list.first << " -> ";
+        for (auto const& item : list.second) {
+            cout << item->getRight().getLine() << " | ";
+        }
+        cout << "\n";
     }
 }

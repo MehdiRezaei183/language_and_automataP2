@@ -10,6 +10,7 @@
 #include "map"
 #include "algorithm"
 #include "regex"
+#include "iostream"
 #include "queue"
 
 class Grammar {
@@ -57,6 +58,9 @@ public:
     void transformToUpper();
 
     void transformFinal();
+
+    //////////////////////
+    void printGrammar();
 };
 
 
