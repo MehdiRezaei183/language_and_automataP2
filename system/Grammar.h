@@ -48,8 +48,14 @@ public:
     void RemoveInfinite();
     // Removing unit position
     void Remove_unit_production();
-
+    // Removing landa from ruls
     void Remove_Landa_Production();
+
+    void Removing();
+
+    //////////////////////////////////////
+    void transformToUpper();
+
 };
 
 

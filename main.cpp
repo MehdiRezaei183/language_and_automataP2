@@ -22,15 +22,11 @@ int main() {
     test.addRule(input);
     input = "A -> aAS | D | @";
     test.addRule(input);
-    /*input = "B -> SbS | A | bb";
-    test.addRule(input);*/
+    input = "B -> SbS | A | bb";
+    test.addRule(input);
     input = "D -> Ab | bb";
     test.addRule(input);
-    test.RemoveInfinite();
-    test.RemoveUseless();
-    test.Remove_unit_production();
-    test.RemoveUseless();
-    test.Remove_Landa_Production();
-
+    test.Removing();
+    test.transformToUpper();
     return 0;
 }

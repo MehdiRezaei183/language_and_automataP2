@@ -197,6 +197,7 @@ void Grammar::Remove_Landa_Production() {
             }
         }
     }
+    terminals.erase(terminals.find('@'));
 }
 
 bool Grammar::remove_lan(const string var ) {
@@ -212,4 +213,43 @@ bool Grammar::remove_lan(const string var ) {
         }
     }
     return result;
+}
+
+void Grammar::Removing() {
+    this->RemoveUseless();
+    this->RemoveInfinite();
+    this->Remove_unit_production();
+    this->RemoveUseless();
+    this->Remove_Landa_Production();
+    for (auto const& item : variables) {
+        if(Rules.find(item.first) == Rules.end()){
+            variables.erase(variables.find(item.first));
+        }
+    }
+}
+
+void Grammar::transformToUpper() {
+    char base = '1';
+    for (auto const & term : terminals) {
+        variables[base] = new Variable(base);
+        this->addRuleToVar(string (1 , base) , string(1, term.first));
+        for (auto const& list : Rules) {
+            for (auto & item : list.second) {
+                vector<Interface_Ter_Var*> mylist = item->getRight().getTypes();
+                if(item->getRight().getLine().size() != 1 && any_of(mylist.begin() , mylist.end() , [term](Interface_Ter_Var* input){
+                    return !input->isVar() && input->getTag() ==  term.first;
+                })){
+                    string line = item->getRight().getLine();
+                    size_t pos = line.find(term.second->getTag());
+                    while (pos != std::string::npos) {
+                        line.replace(pos, 1, string(1 , base));
+                        pos = line.find(term.second->getTag(), pos + 1);
+                    }
+                    Expression temp = Expression(line , this->getTypes(line));
+                    item->setExp(temp);
+                }
+            }
+        }
+        base++;
+    }
 }
